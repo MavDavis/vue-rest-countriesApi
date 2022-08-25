@@ -1,6 +1,6 @@
 <template>
 <section>
-    <select name="region" >
+    <select name="region" v-model="selected" @change="changed()">
     <option value="">Filter By re</option>
     <option v-for="option in options" :key="option" :value="option">{{option}}</option>
   
@@ -13,8 +13,13 @@ export default {
 name:"Filter",
 data(){
     return{
-        options:[ 'Asia', 'Africa', 'North America', 'South America', 'Antarctica', 'Europe', 'Australia'
+        options:[ 'Asia', 'Africa', 'Americas',  'Oceania', 'Europe'
 ],
+selected:""
+    }
+}, methods:{
+    changed(){
+        this.$emit('select',(this.selected))
     }
 }
 }
@@ -33,5 +38,9 @@ select{
       padding: .8rem 1rem;
       background: none;
    
+}
+option{
+    margin-top: 1rem;
+    border: none;
 }
 </style>
