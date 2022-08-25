@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="back">
+    <div class="back" :class="{ bg: $store.state.theme }">
       <i class="fas fa-arrow-left"></i>
       <span @click="back()">Back</span>
     </div>
@@ -21,10 +21,17 @@
             <div class="details rowe2">
               <div class="col-6">
                 <p>
-                  Native Name:<span> {{ count.name.nativeName }}</span>
+                  Native Name:<span>
+                    {{
+                      count.name.nativeName[Object.keys(count.languages)[0]]
+                        .common
+                    }}</span
+                  >
                 </p>
                 <p>
-                  Population:<span>{{ count.population }}</span>
+                  Population:<span>{{
+                    count.population.toLocaleString()
+                  }}</span>
                 </p>
                 <p>
                   Region:<span>{{ count.region }}</span>
@@ -46,17 +53,29 @@
                   }}</span>
                 </p>
                 <p>
-                  Currencies:<span>{{  }}</span>
+                  Currencies:<span>{{
+                    count.currencies[Object.keys(count.currencies)[0]].name
+                  }}</span>
                 </p>
                 <p>
-                  Languages:<span>{{ count.languages }}</span>
+                  Languages:<span>{{
+                    count.languages[Object.keys(count.languages)[0]]
+                  }}</span>
                 </p>
               </div>
             </div>
             <div class="border">
-                <p>Border Countries: 
-                    <span  v-for="bord in count.borders" :key="bord[0]">{{bord}}</span>
+              <p>Border Countries:</p>
+              <div class="bod">
+                <p
+                  v-for="bord in count.borders"
+                  :key="bord[0]"
+                  class="back"
+                  :class="{ bg: $store.state.theme }"
+                >
+                  {{ bord }}
                 </p>
+              </div>
             </div>
           </div>
         </div>
@@ -84,18 +103,21 @@ export default {
     });
   },
 
- 
+  computed: {
+    border() {
+      this.country;
+    },
+  },
 
   methods: {
     back() {
       this.$router.push("/");
-   
     },
   },
 };
 </script>
 
-<style  scoped>
+<style scoped>
 section {
   position: relative;
   width: 100%;
@@ -103,12 +125,18 @@ section {
   margin: 2rem 0;
 }
 .back {
+  background: var(--Light-Mode-Elements);
+  color: var(--Light-Mode-Text);
   box-shadow: var(--box-shadow);
   padding: 5px 9px;
   border-radius: 10px;
   width: 100px;
   transition: ease 0.3s;
   margin: 2rem 0;
+}
+.back.bg {
+  background: var(--Dark-Mode-Elements);
+  color: var(--Dark-Mode-Text);
 }
 .back span {
   margin-left: 10px;
@@ -118,43 +146,81 @@ section {
   cursor: pointer;
   border: 0.1px solid #ccc;
 }
-.rowe, .rowe2{
-        display: flex;
-    max-width: 100%;
-    
-    justify-content: space-between;
-    width: 100%;
-    position:relative; 
-}
-.details p{
-font-weight: 800;
-line-height: 1.6rem;
-}
-.details p span{
-    font-weight: normal;
-    margin-left: 5px;
-}
-.image-container{
-    position: relative;
-    height: 100%;
-    max-width: 100%;
-}
-img{
-    height:100%;
-    position: relative;
-        max-width: 100%;
+.rowe,
+.rowe2 {
+  display: flex;
+  max-width: 100%;
 
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
 }
-.rowe .col-2{
-position: relative;
-width: 40%;
-}.rowe .col-3{
-    width:56%;
-    display: flex;
-    justify-content: space-between;
+.details p {
+  font-weight: 800;
+  line-height: 1.6rem;
+}
+.details p span {
+  font-weight: normal;
+  margin-left: 5px;
+}
+.image-container {
+  position: relative;
+  height: 100%;
+  max-width: 100%;
+}
+img {
+  height: 100%;
+  position: relative;
+  max-width: 100%;
+}
+.rowe .col-2 {
+  position: relative;
+  width: 40%;
+}
+.rowe .col-3 {
+  width: 56%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.border {
+  margin-top: 3rem;
+  display: flex;
+}
+.border p {
+  font-weight: 800;
+  margin-right: 1rem;
+}
+.border .bod {
+  display: flex;
+  justify-content: space-between;
+}
+.border .bod p.back {
+  margin: 0 10px;
+  background: var(--Light-Mode-Elements);
+  color: var(--Light-Mode-Text);
+}
+.border .bod p.bg {
+  margin: 0 10px;
+  background: var(--Dark-Mode-Elements);
+  color: var(--Dark-Mode-Text);
+}
+
+@media (max-width: 700px) {
+  .rowe2 {
     flex-direction: column;
+  }
+  img {
+    width: 100%;
+  }
 }
-.border{
-    margin-top: 3rem;
+@media (max-width: 500px) {
+  .rowe {
+    flex-direction: column;
+  }
+  .rowe .col-2,
+  .rowe .col-3 {
+    width: 100%;
+  }
 }
 </style>

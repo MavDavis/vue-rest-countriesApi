@@ -1,5 +1,5 @@
 <template>
-  <div class="icon-input">
+  <div class="icon-input" :class="{  bg : $store.state.theme} " >
     <i class="fas fa-search"></i>
 
     <input
@@ -40,9 +40,14 @@ methods:{
 .icon-input {
   position: relative;
   width: 300px;
-
+    background:var(--Light-Mode-Elements) ;
+    color:var(--Light-Mode-Text);
   height: 3rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.icon-input.bg{
+      background:var(--Dark-Mode-Elements) ;
+    color:var(--Dark-Mode-Text);
 }
 .input-text {
   border: none;

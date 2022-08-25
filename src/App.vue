@@ -1,6 +1,8 @@
 <template>
+<div :class="{  Light : $store.state.theme} " class="body"
+>
 <Navbar/>
-  <router-view/>
+  <router-view/></div>
 </template>
 
 <script>
@@ -34,5 +36,23 @@ export default {
 --Light-Mode-Elements: hsl(0, 0%, 100%);
   --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
 
+}
+.body{
+  min-height: 100vh;
+  height: 100%;
+  position: relative;
+  background: var(--Light-Mode-Background);
+  color:var(--Light-Mode-Text);
+ 
+}
+.body.Light{
+  background: var(--Dark-Mode-Background);
+  color:var(--Dark-Mode-Text);
+ animation-name: opacity;
+  animation-duration: 2s;
+  }
+@keyframes opacity {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 </style>

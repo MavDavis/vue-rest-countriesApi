@@ -1,10 +1,10 @@
 <template>
-  <nav >
+  <nav :class="{  bg : $store.state.theme} " >
     <div class="logo">
         <h3>Where in the world?</h3>
     </div>
-    <div class="mode">
-        <div v-if="dark">
+    <div class="mode" @click="$store.commit('changetheme')">
+        <div v-if="$store.state.theme">
         <i class="fas fa-moon"></i>
         <span>Dark Mode</span>
         </div>
@@ -36,10 +36,23 @@ nav{
     margin: 0 0 1rem 0;
       box-shadow:
   var(--box-shadow);
-  
+    background:var(--Light-Mode-Elements) ;
+    color:var(--Light-Mode-Text);
 }
-
+nav.bg{
+        background:var(--Dark-Mode-Elements) ;
+    color:var(--Dark-Mode-Text);
+}
+.mode{
+       cursor: pointer;
+       transition: .2s ease;
+}
+.mode:hover{
+    letter-spacing: .1px;
+}
     .mode span{
+     
+
         margin-left: .6rem;
     }
 

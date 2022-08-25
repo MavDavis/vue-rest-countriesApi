@@ -1,6 +1,6 @@
 <template>
   <section>
-    <select name="region" v-model="selected" @change="changed()">
+    <select name="region" v-model="selected" @change="changed()" :class="{  bg : $store.state.theme} " >
       <option value="">Filter By re</option>
       <option v-for="option in options" :key="option" :value="option">
         {{ option }}
@@ -27,16 +27,20 @@ export default {
 </script>
 
 <style scoped>
-section {
-}
+
 select {
   border: none;
   position: absolute;
   right: 0;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
+    background:var(--Light-Mode-Elements) ;
+    color:var(--Light-Mode-Text);
   padding: 0.8rem 1rem;
   background: none;
+}
+select.bg{
+      background:var(--Dark-Mode-Elements) ;
+    color:var(--Dark-Mode-Text);
 }
 option {
   margin-top: 1rem;
