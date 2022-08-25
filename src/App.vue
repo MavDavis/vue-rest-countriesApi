@@ -43,6 +43,7 @@ export default {
   position: relative;
   background: var(--Light-Mode-Background);
   color:var(--Light-Mode-Text);
+  padding-bottom: 4rem;
  
 }
 .body.Light{

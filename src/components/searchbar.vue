@@ -47,7 +47,7 @@ methods:{
 }
 .icon-input.bg{
       background:var(--Dark-Mode-Elements) ;
-    color:var(--Dark-Mode-Text);
+   
 }
 .input-text {
   border: none;
@@ -57,6 +57,9 @@ methods:{
   padding: 0.8rem 1rem;
   background: none;
   appearance: none;
+}
+.icon-input.bg .input-text, .icon-input.bg i{
+   color:var(--Dark-Mode-Text);
 }
 i {
   position: absolute;

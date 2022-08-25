@@ -5,7 +5,7 @@
       <span @click="back()">Back</span>
     </div>
     <div v-if="!loading">
-      <div class="rowe" v-for="count in country" :key="count.ccn3">
+      <div class="rowe">
         <div class="col-2">
           <div class="image-container">
             <img :src="count.flags.png" alt="" />
@@ -72,6 +72,7 @@
                   :key="bord[0]"
                   class="back"
                   :class="{ bg: $store.state.theme }"
+                   @click="openNewDetail(bord)"
                 >
                   {{ bord }}
                 </p>
@@ -92,17 +93,24 @@ export default {
     return {
       url: `https://restcountries.com/v3.1/alpha?codes=${this.$route.params.id}`,
       loading: true,
-      country: null,
+      count: null,
+      borders:null
     };
   },
   mounted() {
-    axios.get(this.url).then((response) => {
-      this.loading = false;
-      this.country = response.data;
-      console.log(this.country);
-    });
-  },
+    let countries = JSON.parse(localStorage.getItem('country'))
+    let country = countries.find(country => country.ccn3 == this.$route.params.id)
+ this.loading = false;
+ this.count = country;
+let border = country.borders;
+let res = countries.filter(item => {
+  !border.includes(item.cioc)
 
+
+  });
+console.log(res, border);
+ 
+  },
   computed: {
     border() {
       this.country;
@@ -113,6 +121,10 @@ export default {
     back() {
       this.$router.push("/");
     },
+    openNewDetail(bord){
+      console.log(bord);
+     // this.$router.push(`/Details/${foundItem.ccn3}`)
+    }
   },
 };
 </script>
@@ -144,7 +156,6 @@ section {
 .back:hover {
   box-shadow: none;
   cursor: pointer;
-  border: 0.1px solid #ccc;
 }
 .rowe,
 .rowe2 {
@@ -199,6 +210,8 @@ img {
   margin: 0 10px;
   background: var(--Light-Mode-Elements);
   color: var(--Light-Mode-Text);
+    transition: ease .3s;
+
 }
 .border .bod p.bg {
   margin: 0 10px;
@@ -215,8 +228,11 @@ img {
   }
 }
 @media (max-width: 500px) {
-  .rowe {
+  .rowe, .border {
     flex-direction: column;
+  }
+  .bod{
+    margin-top: 2rem;
   }
   .rowe .col-2,
   .rowe .col-3 {
