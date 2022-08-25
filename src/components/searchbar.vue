@@ -61,4 +61,18 @@ i {
 .input-text:focus {
   border: none;
 }
+@media (max-width: 450px) {
+  i {
+  position: absolute;
+  top: .6rem;
+  left: 1rem;
+}
+  .icon-input{
+    height:2.4rem;
+    width:60%;
+  }
+  .input-text {
+  
+    padding: 0.4rem 0.6rem;
+  }}
 </style>

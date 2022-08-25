@@ -46,6 +46,7 @@ this.$router.push(`/Details/${code}`)
     grid-row-gap: 2rem;
 }
 .country-container{
+    border-radius: 10px;
     cursor: pointer;
     display:flex;
     flex-direction: column;
@@ -56,6 +57,7 @@ this.$router.push(`/Details/${code}`)
         position: relative;
     overflow: hidden;
     height: 50%;
+    border-radius: 10px  10px  0 0;
 }
 .flag-img{
         display: block;

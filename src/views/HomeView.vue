@@ -29,13 +29,18 @@ components:{
     Country
 },
 mounted(){
+    let country = JSON.parse(localStorage.getItem('country'))
+if(country !== undefined){
+  this.loading = false;
+  this.countries = country
+}else{
  axios
       .get('https://restcountries.com/v3.1/all')
       .then(response => {
         this.loading= false
         this.countries = (response.data)
         localStorage.setItem('country', JSON.stringify(response.data))
-        })
+        })}
 }, 
 data(){
   return{
@@ -81,5 +86,13 @@ filterCountry(region){
 .col-6.filter{
   display: flex;
   justify-content: flex-end;
+}
+@media(max-width:450px){
+.row{
+  flex-direction:column;
+}
+.col-6.col-6.filter{
+  justify-content: start;
+}
 }
 </style>
