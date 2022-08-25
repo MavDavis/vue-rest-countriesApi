@@ -14,11 +14,16 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,400;0,800;1,600&display=swap');
 *{
+  
   margin:0;
   padding:0;
   box-sizing: border-box;
   font-family: 'Nunito Sans', sans-serif;
 }
+*:focus {
+    outline: none;
+}
+
 :root{
   --Dark-Mode-Elements: hsl(209, 23%, 22%);
 --Dark-Mode-Background: hsl(207, 26%, 17%);
