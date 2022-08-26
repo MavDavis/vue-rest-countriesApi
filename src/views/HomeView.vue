@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="row" v-if="loading">
-<h1 style="position:absolute; top:50%; left:40%; width:5%;">Loading...</h1>
+<Modal/>
   </div>
   <div class="rows" v-else>
     <Country :datas="countries"/>
@@ -22,11 +22,13 @@ import Filter from '@/components/filter.vue';
 import Searchbar from '@/components/searchbar.vue';
 import axios from 'axios'
 import Country from '@/components/Country.vue';
+import Modal from '../components/Modal.vue';
 export default {
 components:{
     Filter,
     Searchbar,
-    Country
+    Country,
+    Modal
 },
 mounted(){
     let country = JSON.parse(localStorage.getItem('country'))
