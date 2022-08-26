@@ -30,7 +30,7 @@ components:{
 },
 mounted(){
     let country = JSON.parse(localStorage.getItem('country'))
-if(country !== undefined){
+if(country === undefined ){
   this.loading = false;
   this.countries = country
 }else{
