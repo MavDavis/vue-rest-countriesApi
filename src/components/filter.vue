@@ -36,7 +36,7 @@ select {
     background:var(--Light-Mode-Elements) ;
     color:var(--Light-Mode-Text);
   padding: 0.8rem 1rem;
-  background: none;
+ 
 }
 select.bg{
       background:var(--Dark-Mode-Elements) ;

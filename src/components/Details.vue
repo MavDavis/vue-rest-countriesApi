@@ -68,13 +68,15 @@
               <p>Border Countries:</p>
               <div class="bod">
                 <p
-                  v-for="bord in count.borders"
-                  :key="bord[0]"
+                  v-for="bord in borders"
+                  :key="bord"
                   class="back"
                   :class="{ bg: $store.state.theme }"
-                   @click="openNewDetail(bord)"
+                  @click="openNewDetail(bord.ccn3)"
                 >
-                  {{ bord }}
+                  {{
+                    bord.name.nativeName[Object.keys(bord.languages)[0]].common
+                  }}
                 </p>
               </div>
             </div>
@@ -94,37 +96,38 @@ export default {
       url: `https://restcountries.com/v3.1/alpha?codes=${this.$route.params.id}`,
       loading: true,
       count: null,
-      borders:null
+      borders: null,
     };
   },
   mounted() {
-    let countries = JSON.parse(localStorage.getItem('country'))
-    let country = countries.find(country => country.ccn3 == this.$route.params.id)
- this.loading = false;
- this.count = country;
-let border = country.borders;
-let res = countries.filter(item => {
-  !border.includes(item.cioc)
+    let countries = JSON.parse(localStorage.getItem("country"));
+    let country = countries.find(
+      (country) => country.ccn3 == this.$route.params.id
+    );
+    this.loading = false;
+    this.count = country;
 
-
-  });
-console.log(res, border);
- 
+    let boadingState = countries.filter((state) =>
+      country.borders.includes(state.cca3)
+    );
+    this.borders = boadingState;
   },
-  computed: {
-    border() {
-      this.country;
-    },
-  },
+  computed: {},
 
   methods: {
     back() {
       this.$router.push("/");
     },
-    openNewDetail(bord){
-      console.log(bord);
-     // this.$router.push(`/Details/${foundItem.ccn3}`)
-    }
+    openNewDetail(bord) {
+      let countries = JSON.parse(localStorage.getItem("country"));
+      let country = countries.find((country) => country.ccn3 == bord);
+      this.loading = false;
+       let boadingState = countries.filter((state) =>
+      country.borders.includes(state.cca3)
+    );
+    this.borders = boadingState;
+      this.count = country;
+    },
   },
 };
 </script>
@@ -204,17 +207,20 @@ img {
 }
 .border .bod {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+     flex-direction: row;
 }
 .border .bod p.back {
-  margin: 0 10px;
+   width: fit-content;
+  margin: 0 10px 10px 10px;
+  height: fit-content;
   background: var(--Light-Mode-Elements);
   color: var(--Light-Mode-Text);
-    transition: ease .3s;
-
+  transition: ease 0.3s;
 }
 .border .bod p.bg {
-  margin: 0 10px;
+   width: fit-content;
+  margin: 0 10px 10px 10px;
   background: var(--Dark-Mode-Elements);
   color: var(--Dark-Mode-Text);
 }
@@ -228,10 +234,15 @@ img {
   }
 }
 @media (max-width: 500px) {
-  .rowe, .border {
+  .border .bod {
+
+     flex-direction: column;
+}
+  .rowe,
+  .border {
     flex-direction: column;
   }
-  .bod{
+  .bod {
     margin-top: 2rem;
   }
   .rowe .col-2,
